@@ -44,14 +44,18 @@
       overflow: hidden;
       background: var(--teal-oscuro);
       color: #fff;
-      padding: 2rem 1.25rem 7rem;
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(1rem, 3.5vh, 2rem) 1.25rem clamp(4.5rem, 11vh, 6.5rem);
     }
     /* Burbuja de conversación grande (motivo central de la marca) */
     .portada .burbuja {
       position: absolute;
       right: -8%;
-      top: -12%;
-      width: min(78vw, 600px);
+      top: -14%;
+      width: min(78vw, 520px, 75vh);
       aspect-ratio: 689 / 738;
       background: var(--teal);
       -webkit-mask: url("assets/burbuja.png") center / contain no-repeat;
@@ -66,7 +70,7 @@
       -webkit-mask: url("assets/estrella.png") center / contain no-repeat;
               mask: url("assets/estrella.png") center / contain no-repeat;
       right: clamp(1.25rem, 8vw, 9rem);
-      bottom: 5rem;
+      bottom: clamp(4.5rem, 12vh, 6.5rem);
       pointer-events: none;
     }
     .portada .onda {
@@ -87,11 +91,12 @@
     }
     .contenedor {
       position: relative;
+      width: 100%;
       max-width: 1080px;
       margin: 0 auto;
     }
-    .logo { width: 170px; }
-    .portada .texto { margin-top: clamp(3rem, 9vw, 6rem); max-width: 620px; }
+    .logo { width: clamp(120px, 17vh, 160px); }
+    .portada .texto { margin-top: clamp(1.25rem, 5vh, 3rem); max-width: 900px; }
     .etiqueta {
       display: inline-block;
       background: var(--rosa);
@@ -104,30 +109,30 @@
       padding: .25em .75em;
     }
     .titulo {
-      font-size: clamp(2.6rem, 8vw, 4.6rem);
+      font-size: clamp(2.4rem, min(7vw, 9vh), 4.4rem);
       line-height: 1.02;
       font-weight: 800;
       color: var(--amarillo);
-      margin: 1rem 0 1rem;
+      margin: clamp(.5rem, 1.6vh, 1rem) 0 clamp(.5rem, 1.6vh, 1rem);
       letter-spacing: -.01em;
     }
     .titulo em { font-style: italic; font-weight: 300; }
     .portada p.bajada {
       font-size: clamp(1rem, 2.2vw, 1.2rem);
       margin: 0;
-      max-width: 34ch;
+      max-width: 60ch;
       opacity: .95;
     }
 
     /* ---------- Tarjetas de sistemas ---------- */
     main {
-      flex: 1;
-      padding: 0 1.25rem 3rem;
+      flex: 0 0 auto;
+      padding: 0 1.25rem clamp(1.25rem, 3vh, 2.5rem);
     }
     .rejilla {
       list-style: none;
       padding: 0;
-      margin: -4.5rem auto 0;
+      margin: calc(-1 * clamp(3.5rem, 8vh, 4.75rem)) auto 0;
       max-width: 1080px;
       display: grid;
       grid-template-columns: 1fr;
@@ -143,7 +148,7 @@
       height: 100%;
       background: #fff;
       border-radius: 24px;
-      padding: 1.6rem 1.5rem 1.4rem;
+      padding: clamp(1rem, 2.6vh, 1.5rem) 1.4rem clamp(1rem, 2.4vh, 1.4rem);
       text-decoration: none;
       color: var(--morado);
       box-shadow: 0 1px 2px rgba(79, 26, 72, .06), 0 10px 30px rgba(79, 26, 72, .10);
@@ -166,9 +171,9 @@
     /* Ícono dentro de una burbuja de conversación */
     .icono {
       position: relative;
-      width: 76px;
+      width: clamp(52px, 8vh, 68px);
       aspect-ratio: 689 / 738;
-      margin-bottom: 1.25rem;
+      margin-bottom: clamp(.6rem, 1.8vh, 1rem);
     }
     .icono::before {
       content: "";
@@ -183,8 +188,9 @@
       left: 50%;
       top: 44%;
       transform: translate(-50%, -50%);
-      width: 36px;
-      height: 36px;
+      width: 46%;
+      height: auto;
+      aspect-ratio: 1;
       stroke: #fff;
       fill: none;
       stroke-width: 2;
@@ -193,15 +199,15 @@
     }
     .sistema h2 {
       margin: 0 0 .4rem;
-      font-size: 1.55rem;
+      font-size: clamp(1.2rem, 2.8vh, 1.45rem);
       line-height: 1.15;
       font-weight: 800;
       color: var(--teal);
     }
     .sistema h2 em { font-style: italic; font-weight: 300; }
     .sistema p {
-      margin: 0 0 1.4rem;
-      font-size: .95rem;
+      margin: 0 0 clamp(.8rem, 2vh, 1.2rem);
+      font-size: .93rem;
       color: var(--morado);
       opacity: .85;
     }
@@ -216,7 +222,7 @@
       font-weight: 700;
       font-size: .95rem;
       border-radius: 999px;
-      padding: .6rem 1.3rem;
+      padding: .5rem 1.2rem;
       transition: gap .18s ease;
     }
     .sistema.naranja .abrir { color: var(--morado); }
@@ -224,7 +230,7 @@
     .abrir svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
     /* ---------- Pie ---------- */
-    footer { padding: 0 1.25rem 1.5rem; }
+    footer { padding: 0 1.25rem clamp(.75rem, 2vh, 1.25rem); }
     .pie {
       max-width: 1080px;
       margin: 0 auto;
@@ -239,7 +245,7 @@
     .pie .seccion { color: var(--naranja); }
     .pie .seccion em { font-weight: 300; }
     .pie .seccion b { font-weight: 800; }
-    .pie img { width: 96px; }
+    .pie img { width: 80px; }
 
     @media (max-width: 560px) {
       .portada { padding-bottom: 6rem; }
