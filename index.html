@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistemas MOA</title>
+  <meta name="description" content="Accesos a todos los sistemas de MOA Education en un solo lugar.">
+  <meta name="theme-color" content="#036870">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #178391;
+      --teal-oscuro: #036870;
+      --morado: #4F1A48;
+      --morado-claro: #82647F;
+      --gris: #EDEDED;
+      --naranja: #F9B03B;
+      --amarillo: #F9D05D;
+      --carmin: #C40847;
+      --rosa: #E62962;
+      --fuente: 'Poppins', 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: #FFFFFF;
+      color: var(--morado);
+      font-family: var(--fuente);
+      line-height: 1.55;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ---------- Portada ---------- */
+    .portada {
+      position: relative;
+      overflow: hidden;
+      background: var(--teal-oscuro);
+      color: #fff;
+      padding: 2rem 1.25rem 7rem;
+    }
+    /* Burbuja de conversación grande (motivo central de la marca) */
+    .portada .burbuja {
+      position: absolute;
+      right: -8%;
+      top: -12%;
+      width: min(78vw, 600px);
+      aspect-ratio: 689 / 738;
+      background: var(--teal);
+      -webkit-mask: url("assets/burbuja.png") center / contain no-repeat;
+              mask: url("assets/burbuja.png") center / contain no-repeat;
+      pointer-events: none;
+    }
+    .portada .estrella {
+      position: absolute;
+      width: clamp(56px, 9vw, 96px);
+      aspect-ratio: 758 / 747;
+      background: var(--amarillo);
+      -webkit-mask: url("assets/estrella.png") center / contain no-repeat;
+              mask: url("assets/estrella.png") center / contain no-repeat;
+      right: clamp(1.25rem, 8vw, 9rem);
+      bottom: 5rem;
+      pointer-events: none;
+    }
+    .portada .onda {
+      position: absolute;
+      width: clamp(120px, 18vw, 200px);
+      aspect-ratio: 1206 / 398;
+      background: var(--rosa);
+      -webkit-mask: url("assets/onda.png") center / contain no-repeat;
+              mask: url("assets/onda.png") center / contain no-repeat;
+      left: -1.5rem;
+      bottom: 7.5rem;
+      pointer-events: none;
+      display: none;
+    }
+    /* La onda solo aparece en pantallas anchas, donde no toca el texto */
+    @media (min-width: 1300px) {
+      .portada .onda { display: block; width: 130px; }
+    }
+    .contenedor {
+      position: relative;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .logo { width: 170px; }
+    .portada .texto { margin-top: clamp(3rem, 9vw, 6rem); max-width: 620px; }
+    .etiqueta {
+      display: inline-block;
+      background: var(--rosa);
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      border-radius: .4em;
+      padding: .25em .75em;
+    }
+    .titulo {
+      font-size: clamp(2.6rem, 8vw, 4.6rem);
+      line-height: 1.02;
+      font-weight: 800;
+      color: var(--amarillo);
+      margin: 1rem 0 1rem;
+      letter-spacing: -.01em;
+    }
+    .titulo em { font-style: italic; font-weight: 300; }
+    .portada p.bajada {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      margin: 0;
+      max-width: 34ch;
+      opacity: .95;
+    }
+
+    /* ---------- Tarjetas de sistemas ---------- */
+    main {
+      flex: 1;
+      padding: 0 1.25rem 3rem;
+    }
+    .rejilla {
+      list-style: none;
+      padding: 0;
+      margin: -4.5rem auto 0;
+      max-width: 1080px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      position: relative;
+    }
+    @media (min-width: 600px)  { .rejilla { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1000px) { .rejilla { grid-template-columns: repeat(4, 1fr); } }
+    .sistema {
+      --color: var(--teal);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: #fff;
+      border-radius: 24px;
+      padding: 1.6rem 1.5rem 1.4rem;
+      text-decoration: none;
+      color: var(--morado);
+      box-shadow: 0 1px 2px rgba(79, 26, 72, .06), 0 10px 30px rgba(79, 26, 72, .10);
+      border: 2px solid transparent;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .sistema:hover {
+      transform: translateY(-4px);
+      border-color: var(--color);
+      box-shadow: 0 2px 4px rgba(79, 26, 72, .06), 0 18px 40px rgba(79, 26, 72, .16);
+    }
+    .sistema:focus-visible {
+      outline: 3px solid var(--color);
+      outline-offset: 4px;
+    }
+    .sistema.morado  { --color: var(--morado); }
+    .sistema.rosa    { --color: var(--rosa); }
+    .sistema.naranja { --color: var(--naranja); }
+
+    /* Ícono dentro de una burbuja de conversación */
+    .icono {
+      position: relative;
+      width: 76px;
+      aspect-ratio: 689 / 738;
+      margin-bottom: 1.25rem;
+    }
+    .icono::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--color);
+      -webkit-mask: url("assets/burbuja.png") center / contain no-repeat;
+              mask: url("assets/burbuja.png") center / contain no-repeat;
+    }
+    .icono svg {
+      position: absolute;
+      left: 50%;
+      top: 44%;
+      transform: translate(-50%, -50%);
+      width: 36px;
+      height: 36px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .sistema h2 {
+      margin: 0 0 .4rem;
+      font-size: 1.55rem;
+      line-height: 1.15;
+      font-weight: 800;
+      color: var(--teal);
+    }
+    .sistema h2 em { font-style: italic; font-weight: 300; }
+    .sistema p {
+      margin: 0 0 1.4rem;
+      font-size: .95rem;
+      color: var(--morado);
+      opacity: .85;
+    }
+    .abrir {
+      margin-top: auto;
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--color);
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      border-radius: 999px;
+      padding: .6rem 1.3rem;
+      transition: gap .18s ease;
+    }
+    .sistema.naranja .abrir { color: var(--morado); }
+    .sistema:hover .abrir { gap: .8rem; }
+    .abrir svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ---------- Pie ---------- */
+    footer { padding: 0 1.25rem 1.5rem; }
+    .pie {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 2px solid var(--rosa);
+      padding: .4rem 0;
+      font-size: .9rem;
+    }
+    .pie .seccion { color: var(--naranja); }
+    .pie .seccion em { font-weight: 300; }
+    .pie .seccion b { font-weight: 800; }
+    .pie img { width: 96px; }
+
+    @media (max-width: 560px) {
+      .portada { padding-bottom: 6rem; }
+      .logo { width: 140px; }
+      .portada .burbuja { right: -30%; top: -6%; width: 95vw; }
+      .portada .onda { display: none; }
+      .portada .estrella { width: 44px; top: 1.6rem; bottom: auto; right: 1.25rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sistema, .abrir { transition: none; }
+      .sistema:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="portada">
+    <span class="burbuja" aria-hidden="true"></span>
+    <span class="estrella" aria-hidden="true"></span>
+    <span class="onda" aria-hidden="true"></span>
+    <div class="contenedor">
+      <img class="logo" src="assets/logo-blanco.png" alt="MOA Education" width="560" height="232">
+      <div class="texto">
+        <span class="etiqueta">Accesos</span>
+        <h1 class="titulo"><em>Nuestros</em> sistemas</h1>
+        <p class="bajada">Todos los sistemas de MOA en un solo lugar. Toca uno para abrirlo.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!--
+      PARA AGREGAR UN SISTEMA NUEVO: copia un bloque <li> ... </li> completo,
+      pégalo debajo del último y cambia el nombre, la descripción y el enlace (href).
+      Colores disponibles en class="sistema ...": (vacío = teal), morado, rosa, naranja.
+    -->
+    <ul class="rejilla">
+
+      <li>
+        <a class="sistema" href="https://moamap-mk3y.vercel.app/" target="_blank" rel="noopener">
+          <span class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          </span>
+          <h2><em>Moa</em> Map</h2>
+          <p>Notas de los colegios y Pruebas MOA, cargadas por profesores y KAM.</p>
+          <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+      <li>
+        <a class="sistema morado" href="https://moa-education-finance.vercel.app/" target="_blank" rel="noopener">
+          <span class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+          </span>
+          <h2><em>Moa</em> Finance</h2>
+          <p>Ingresos, gastos y clientes de MOA Education.</p>
+          <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+      <li>
+        <a class="sistema rosa" href="https://moa-dashboard-three.vercel.app/" target="_blank" rel="noopener">
+          <span class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          </span>
+          <h2><em>Moa</em> Dashboard</h2>
+          <p>Tareas, checkpoints y KPI del equipo.</p>
+          <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+      <li>
+        <a class="sistema naranja" href="https://moa-education-students.fly.dev/" target="_blank" rel="noopener">
+          <span class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></svg>
+          </span>
+          <h2><em>Moa</em> Student Platform</h2>
+          <p>Plataforma académica para estudiantes, profesores, KAM y administración.</p>
+          <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+    </ul>
+  </main>
+
+  <footer>
+    <div class="pie">
+      <span class="seccion"><em>Sistemas</em> <b>MOA</b></span>
+      <img src="assets/logo-color.png" alt="MOA Education" width="560" height="232">
+    </div>
+  </footer>
+
+</body>
+</html>
