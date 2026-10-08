@@ -247,15 +247,178 @@
     .pie .seccion b { font-weight: 800; }
     .pie img { width: 80px; }
 
+
+    /* =========================================================
+       ANIMACIONES
+       Solo se mueven con transform y opacity (suaves y sin saltos).
+       Todo lo decorativo vive dentro de la portada, que recorta lo
+       que se sale, así nunca aparecen barras de desplazamiento.
+       ========================================================= */
+    html, body { overflow-x: hidden; }
+
+    /* Burbuja grande: "respira" y flota despacio */
+    .portada .burbuja { animation: respirar 9s ease-in-out infinite; transform-origin: 60% 40%; }
+    @keyframes respirar {
+      0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50%      { transform: translate(-14px, 12px) scale(1.04) rotate(-3deg); }
+    }
+
+    /* Estrella: gira y late */
+    .portada .estrella { animation: girar 14s linear infinite, latir 2.8s ease-in-out infinite; }
+    @keyframes girar { to { rotate: 360deg; } }
+    @keyframes latir {
+      0%, 100% { scale: 1; }
+      50%      { scale: 1.15; }
+    }
+
+    /* Onda rosa: se balancea */
+    .portada .onda { animation: balancear 4s ease-in-out infinite; }
+    @keyframes balancear {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      50%      { transform: translateX(16px) rotate(-4deg); }
+    }
+
+    /* Burbujas y estrellas pequeñas que suben por la portada */
+    .particula {
+      position: absolute;
+      left: var(--x);
+      bottom: -60px;
+      width: var(--t);
+      aspect-ratio: 1;
+      background: var(--c);
+      opacity: 0;
+      -webkit-mask: url("assets/burbuja.png") center / contain no-repeat;
+              mask: url("assets/burbuja.png") center / contain no-repeat;
+      animation: subir var(--d) linear var(--r) infinite;
+      pointer-events: none;
+    }
+    .particula.est {
+      -webkit-mask-image: url("assets/estrella.png");
+              mask-image: url("assets/estrella.png");
+    }
+    @keyframes subir {
+      0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+      10%  { opacity: var(--o, .55); }
+      50%  { transform: translate(22px, -55vh) rotate(25deg); }
+      85%  { opacity: var(--o, .55); }
+      100% { transform: translate(-10px, -110vh) rotate(-15deg); opacity: 0; }
+    }
+
+    /* Saludos en varios idiomas que van cambiando */
+    .saludos {
+      position: absolute;
+      right: 0;
+      top: .4rem;
+      width: 9.5rem;
+      height: 2.6rem;
+      border: 3px solid var(--amarillo);
+      border-radius: 999px;
+      color: var(--amarillo);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.15rem;
+      animation: flotar 5s ease-in-out infinite;
+    }
+    .saludos span {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      animation: saludo 12.5s ease-in-out infinite;
+    }
+    .saludos span:nth-child(2) { animation-delay: 2.5s; }
+    .saludos span:nth-child(3) { animation-delay: 5s; }
+    .saludos span:nth-child(4) { animation-delay: 7.5s; }
+    .saludos span:nth-child(5) { animation-delay: 10s; }
+    @keyframes saludo {
+      0%       { opacity: 0; transform: translateY(10px); }
+      4%, 18%  { opacity: 1; transform: translateY(0); }
+      22%, 100%{ opacity: 0; transform: translateY(-10px); }
+    }
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50%      { transform: translateY(-8px) rotate(3deg); }
+    }
+
+    /* Entrada del texto y de las tarjetas al abrir la página */
+    .portada .logo,
+    .portada .texto > * { animation: aparecer .8s cubic-bezier(.2, .8, .2, 1) both; }
+    .portada .texto > :nth-child(1) { animation-delay: .1s; }
+    .portada .texto > :nth-child(2) { animation-delay: .2s; }
+    .portada .texto > :nth-child(3) { animation-delay: .3s; }
+    .rejilla > li { animation: aparecer .8s cubic-bezier(.2, .8, .2, 1) both; }
+    .rejilla > li:nth-child(1) { animation-delay: .35s; }
+    .rejilla > li:nth-child(2) { animation-delay: .45s; }
+    .rejilla > li:nth-child(3) { animation-delay: .55s; }
+    .rejilla > li:nth-child(4) { animation-delay: .65s; }
+    .rejilla > li:nth-child(5) { animation-delay: .75s; }
+    .rejilla > li:nth-child(6) { animation-delay: .85s; }
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Los íconos de las tarjetas flotan, cada uno a su ritmo */
+    .icono { animation: flotarIcono 3.6s ease-in-out infinite; }
+    .rejilla > li:nth-child(2) .icono { animation-delay: -.9s; }
+    .rejilla > li:nth-child(3) .icono { animation-delay: -1.8s; }
+    .rejilla > li:nth-child(4) .icono { animation-delay: -2.7s; }
+    @keyframes flotarIcono {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-6px) rotate(-4deg); }
+    }
+    /* Al pasar el mouse, el ícono salta y saluda */
+    .sistema:hover .icono { animation: saltar .6s ease-in-out infinite alternate; }
+    @keyframes saltar {
+      from { transform: translateY(0) rotate(-6deg) scale(1); }
+      to   { transform: translateY(-8px) rotate(6deg) scale(1.08); }
+    }
+    /* Brillo que recorre la tarjeta al pasar el mouse */
+    .sistema { position: relative; overflow: hidden; isolation: isolate; }
+    .sistema::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0;
+      left: -60%;
+      width: 50%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+      transform: skewX(-18deg) translateX(0);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .sistema:hover::after { animation: brillo .9s ease; }
+    @keyframes brillo { to { transform: skewX(-18deg) translateX(420%); } }
+
+    /* Línea del pie con un destello de colores que la recorre */
+    .pie { position: relative; }
+    .pie::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -2px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--naranja) 45%, var(--amarillo) 50%, var(--naranja) 55%, transparent 100%) no-repeat;
+      background-size: 30% 100%;
+      animation: recorrer 4.5s linear infinite;
+    }
+    @keyframes recorrer {
+      from { background-position: -40% 0; }
+      to   { background-position: 140% 0; }
+    }
+
     @media (max-width: 560px) {
       .portada { padding-bottom: 6rem; }
       .logo { width: 140px; }
       .portada .burbuja { right: -30%; top: -6%; width: 95vw; }
       .portada .onda { display: none; }
       .portada .estrella { width: 44px; top: 1.6rem; bottom: auto; right: 1.25rem; }
+      .saludos { display: none; }
     }
+    /* Si la persona pidió en su equipo "reducir movimiento", se respetan */
     @media (prefers-reduced-motion: reduce) {
-      .sistema, .abrir { transition: none; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .particula { display: none; }
+      .saludos span:first-child { opacity: 1; }
       .sistema:hover { transform: none; }
     }
   </style>
@@ -266,8 +429,22 @@
     <span class="burbuja" aria-hidden="true"></span>
     <span class="estrella" aria-hidden="true"></span>
     <span class="onda" aria-hidden="true"></span>
+    <span class="particula " style="--x:62%;--t:37px;--c:var(--amarillo);--d:13s;--r:-2s;--o:.6" aria-hidden="true"></span>
+    <span class="particula est" style="--x:70%;--t:24px;--c:var(--rosa);--d:10s;--r:-7s;--o:.7" aria-hidden="true"></span>
+    <span class="particula " style="--x:78%;--t:51px;--c:var(--teal);--d:16s;--r:-11s;--o:.9" aria-hidden="true"></span>
+    <span class="particula " style="--x:86%;--t:27px;--c:var(--naranja);--d:12s;--r:-4s;--o:.7" aria-hidden="true"></span>
+    <span class="particula est" style="--x:93%;--t:34px;--c:#FFFFFF;--d:15s;--r:-9s;--o:.35" aria-hidden="true"></span>
+    <span class="particula " style="--x:55%;--t:20px;--c:var(--rosa);--d:11s;--r:-1s;--o:.55" aria-hidden="true"></span>
+    <span class="particula " style="--x:4%;--t:31px;--c:var(--amarillo);--d:14s;--r:-6s;--o:.45" aria-hidden="true"></span>
+    <span class="particula est" style="--x:10%;--t:20px;--c:#FFFFFF;--d:12s;--r:-3s;--o:.3" aria-hidden="true"></span>
+    <span class="particula " style="--x:97%;--t:44px;--c:var(--morado-claro);--d:17s;--r:-13s;--o:.6" aria-hidden="true"></span>
+    <span class="particula " style="--x:66%;--t:17px;--c:#FFFFFF;--d:9s;--r:-5s;--o:.35" aria-hidden="true"></span>
+    <span class="particula" style="--x:74%;--t:40px;--c:var(--rosa);--d:18s;--r:-15s;--o:.5" aria-hidden="true"></span>
+    <span class="particula est" style="--x:82%;--t:28px;--c:var(--amarillo);--d:13s;--r:-8s;--o:.65" aria-hidden="true"></span>
+    <span class="particula" style="--x:58%;--t:24px;--c:#FFFFFF;--d:14s;--r:-10s;--o:.25" aria-hidden="true"></span>
     <div class="contenedor">
       <img class="logo" src="assets/logo-blanco.png" alt="MOA Education" width="560" height="232">
+      <span class="saludos" aria-hidden="true"><span>hola</span><span>hello</span><span>salut</span><span>ciao</span><span>bonjour</span></span>
       <div class="texto">
         <span class="etiqueta">Accesos</span>
         <h1 class="titulo"><em>Nuestros</em> sistemas</h1>
