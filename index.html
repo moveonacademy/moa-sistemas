@@ -140,7 +140,16 @@
       position: relative;
     }
     @media (min-width: 600px)  { .rejilla { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1000px) { .rejilla { grid-template-columns: repeat(4, 1fr); } }
+    /* 5 sistemas: en tablet van de 2 en 2 y el último ocupa todo el ancho;
+       en computadora, 3 arriba y 2 (más anchos) abajo, sin huecos. */
+    @media (min-width: 600px) and (max-width: 999px) {
+      .rejilla > li:nth-last-child(2):nth-child(odd) { grid-column: 1 / -1; }
+    }
+    @media (min-width: 1000px) {
+      .rejilla { grid-template-columns: repeat(6, 1fr); }
+      .rejilla > li { grid-column: span 2; }
+      .rejilla > li:nth-child(4), .rejilla > li:nth-child(5) { grid-column: span 3; }
+    }
     .sistema {
       --color: var(--teal);
       display: flex;
@@ -167,6 +176,7 @@
     .sistema.morado  { --color: var(--morado); }
     .sistema.rosa    { --color: var(--rosa); }
     .sistema.naranja { --color: var(--naranja); }
+    .sistema.oscuro  { --color: var(--teal-oscuro); }
 
     /* Ícono dentro de una burbuja de conversación */
     .icono {
@@ -492,6 +502,7 @@
     .rejilla > li:nth-child(2) .icono { animation-delay: -.9s; }
     .rejilla > li:nth-child(3) .icono { animation-delay: -1.8s; }
     .rejilla > li:nth-child(4) .icono { animation-delay: -2.7s; }
+    .rejilla > li:nth-child(5) .icono { animation-delay: -1.3s; }
     @keyframes flotarIcono {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50%      { transform: translateY(-6px) rotate(-4deg); }
@@ -585,7 +596,7 @@
     <!--
       PARA AGREGAR UN SISTEMA NUEVO: copia un bloque <li> ... </li> completo,
       pégalo debajo del último y cambia el nombre, la descripción y el enlace (href).
-      Colores disponibles en class="sistema ...": (vacío = teal), morado, rosa, naranja.
+      Colores disponibles en class="sistema ...": (vacío = teal), morado, rosa, naranja, oscuro.
     -->
     <ul class="rejilla">
 
@@ -629,6 +640,17 @@
           </span>
           <h2><em>Moa</em> Student Platform</h2>
           <p>Plataforma académica para estudiantes, profesores, KAM y administración.</p>
+          <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+      <li>
+        <a class="sistema oscuro" href="https://stand.moaeducation.com/" target="_blank" rel="noopener">
+          <span class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="15" rx="1.5"/><path d="M12 17v4M8 21h8"/><path d="M9 7h6M9 10.5h6"/></svg>
+          </span>
+          <h2><em>Moa</em> Stand</h2>
+          <p>Stand digital «Aula viva» de D-Future: tótem, pantalla de TV, registro por QR y panel con descarga en Excel.</p>
           <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
       </li>

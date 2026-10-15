@@ -4,10 +4,12 @@ Página de accesos de MOA Education: un botón por cada sistema.
 
 | Sistema | Enlace |
 |---|---|
-| Moa Map | https://moamap-mk3y.vercel.app/ |
-| Moa Finance | https://moa-education-finance.vercel.app/ |
-| Moa Dashboard | https://moa-dashboard-three.vercel.app/ |
+| Moa Map | https://map.moaeducation.com/ |
+| Moa Finance | https://finance.moaeducation.com/ |
+| Moa Dashboard | https://dashboard.moaeducation.com/ |
 | Moa Student Platform | https://moa-education-students.fly.dev/ |
+| Moa Stand (D-Future) | https://stand.moaeducation.com/ |
+| Soporte | https://soporte.moaeducation.com/ |
 
 Es una página estática (solo `index.html` y la carpeta `assets/`): no necesita instalar nada ni "build".
 
