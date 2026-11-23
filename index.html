@@ -553,6 +553,106 @@
       .portada .estrella { width: 44px; top: 1.6rem; bottom: auto; right: 1.25rem; }
       .saludos { display: none; }
     }
+    /* =========================================================
+       SONIDO (audios generados con ElevenLabs en assets/audio/)
+       ========================================================= */
+    /* Saludos: ahora es un botón; se escucha al tocarlo */
+    button.saludos { background: none; padding: 0; font-family: inherit; cursor: pointer; }
+    button.saludos:hover { background: rgba(249, 208, 93, .14); }
+    button.saludos:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+    /* Botón «Escuchar qué es» en la esquina de cada tarjeta */
+    .rejilla > li { position: relative; }
+    .escuchar {
+      --color: var(--teal);
+      position: absolute;
+      top: .85rem;
+      right: .85rem;
+      z-index: 2;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--color);
+      background: #fff;
+      color: var(--color);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      padding: 0;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+    .escuchar.morado  { --color: var(--morado); }
+    .escuchar.rosa    { --color: var(--rosa); }
+    .escuchar.naranja { --color: #C98A1E; }
+    .escuchar.oscuro  { --color: var(--teal-oscuro); }
+    .escuchar.claro   { --color: #fff; background: rgba(255, 255, 255, .16); }
+    .escuchar:hover { transform: scale(1.1); background: var(--color); color: #fff; }
+    .escuchar.claro:hover { color: var(--carmin); }
+    .escuchar:focus-visible { outline: 3px solid var(--color); outline-offset: 3px; }
+    .escuchar svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .escuchar .ondas { display: none; align-items: flex-end; gap: 3px; height: 16px; }
+    .escuchar .ondas i { width: 3px; height: 100%; border-radius: 2px; background: currentColor; animation: ecualizador .8s ease-in-out infinite; }
+    .escuchar .ondas i:nth-child(2) { animation-delay: -.25s; }
+    .escuchar .ondas i:nth-child(3) { animation-delay: -.5s; }
+    .escuchar.sonando { background: var(--color); color: #fff; box-shadow: 0 0 0 0 var(--color); animation: pulsoSonido 1.4s ease-out infinite; }
+    .escuchar.claro.sonando { color: var(--carmin); }
+    .escuchar.sonando .parlante { display: none; }
+    .escuchar.sonando .ondas { display: flex; }
+    @keyframes ecualizador { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+    @keyframes pulsoSonido { from { box-shadow: 0 0 0 0 rgba(23, 131, 145, .45); } to { box-shadow: 0 0 0 12px rgba(23, 131, 145, 0); } }
+    /* Deja espacio al botón para que no tape el texto */
+    .sistema h2 { padding-right: 2.6rem; }
+    .soporte { padding-right: clamp(3.6rem, 6vw, 4.6rem); }
+
+    /* Interruptor general de sonido (esquina inferior derecha) */
+    .interruptor {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .interruptor button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--teal-oscuro);
+      color: var(--amarillo);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 8px 22px -6px rgba(3, 104, 112, .6);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .interruptor button:hover { transform: scale(1.08); }
+    .interruptor button:focus-visible { outline: 3px solid var(--naranja); outline-offset: 3px; }
+    .interruptor button[aria-pressed="true"] { background: var(--rosa); color: #fff; }
+    .interruptor svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .interruptor .si { display: none; }
+    .interruptor button[aria-pressed="true"] .si { display: block; }
+    .interruptor button[aria-pressed="true"] .no { display: none; }
+    .interruptor .pista {
+      order: -1;
+      background: #fff;
+      color: var(--morado);
+      font-size: .85rem;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: .45rem .9rem;
+      box-shadow: 0 6px 20px -6px rgba(79, 26, 72, .35);
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity .4s ease, transform .4s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .interruptor .pista.ver { opacity: 1; transform: none; }
+    /* Que el botón no tape el logo del pie en pantallas angostas */
+    @media (max-width: 1240px) { footer { padding-right: 4.75rem; } }
+
     /* Si la persona pidió en su equipo "reducir movimiento", se respetan */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -583,7 +683,7 @@
     <span class="particula" style="--x:58%;--t:24px;--c:#FFFFFF;--d:14s;--r:-10s;--o:.25" aria-hidden="true"></span>
     <div class="contenedor">
       <img class="logo" src="assets/logo-blanco.png" alt="MOA Education" width="560" height="232">
-      <span class="saludos" aria-hidden="true"><span>hola</span><span>buongiorno</span><span>hello</span><span>salut</span><span>ciao</span><span>bonjour</span><span>hi</span></span>
+      <button type="button" class="saludos" aria-label="Escuchar el saludo" title="Toca para escucharlo"><span>hola</span><span>buongiorno</span><span>hello</span><span>salut</span><span>ciao</span><span>bonjour</span><span>hi</span></button>
       <div class="texto">
         <span class="etiqueta">Accesos</span>
         <h1 class="titulo"><em>Nuestros</em> sistemas</h1>
@@ -606,9 +706,13 @@
             <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
           </span>
           <h2><em>Moa</em> Map</h2>
-          <p>Notas de los colegios y Pruebas MOA, cargadas por profesores y KAM.</p>
+          <p>App de los KAM: carpeta de cada colegio, supervisiones, incidencias, notas, Pruebas MOA y KPI.</p>
           <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <button type="button" class="escuchar" data-voz="desc-map" aria-pressed="false" aria-label="Escuchar qué es Moa Map" title="Escuchar qué es">
+          <svg class="parlante" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
       </li>
 
       <li>
@@ -617,9 +721,13 @@
             <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
           </span>
           <h2><em>Moa</em> Finance</h2>
-          <p>Ingresos, gastos y clientes de MOA Education.</p>
+          <p>Ingresos y gastos, cuentas por cobrar y por pagar, y plan vs. real de cada mes.</p>
           <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <button type="button" class="escuchar morado" data-voz="desc-finance" aria-pressed="false" aria-label="Escuchar qué es Moa Finance" title="Escuchar qué es">
+          <svg class="parlante" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
       </li>
 
       <li>
@@ -628,9 +736,13 @@
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
           </span>
           <h2><em>Moa</em> Dashboard</h2>
-          <p>Tareas, checkpoints y KPI del equipo.</p>
+          <p>Tareas, checkpoints, revisiones de calidad y KPI del equipo académico.</p>
           <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <button type="button" class="escuchar rosa" data-voz="desc-dashboard" aria-pressed="false" aria-label="Escuchar qué es Moa Dashboard" title="Escuchar qué es">
+          <svg class="parlante" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
       </li>
 
       <li>
@@ -639,9 +751,13 @@
             <svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></svg>
           </span>
           <h2><em>Moa</em> Student Platform</h2>
-          <p>Plataforma académica para estudiantes, profesores, KAM y administración.</p>
+          <p>Clases de inglés para estudiantes y profesores: calendario, tareas, práctica con IA, pagos y certificados.</p>
           <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <button type="button" class="escuchar naranja" data-voz="desc-student" aria-pressed="false" aria-label="Escuchar qué es Moa Student Platform" title="Escuchar qué es">
+          <svg class="parlante" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
       </li>
 
       <li>
@@ -650,9 +766,13 @@
             <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="15" rx="1.5"/><path d="M12 17v4M8 21h8"/><path d="M9 7h6M9 10.5h6"/></svg>
           </span>
           <h2><em>Moa</em> Stand</h2>
-          <p>Stand digital «Aula viva» de D-Future: tótem, pantalla de TV, registro por QR y panel con descarga en Excel.</p>
+          <p>Stand «Aula viva» de D-Future: registro por QR, prueba de inglés en el tótem y pantalla de TV en vivo.</p>
           <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <button type="button" class="escuchar oscuro" data-voz="desc-stand" aria-pressed="false" aria-label="Escuchar qué es Moa Stand" title="Escuchar qué es">
+          <svg class="parlante" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
       </li>
 
       <!-- Soporte: tarjeta destacada que ocupa todo el ancho -->
@@ -665,10 +785,14 @@
           <span>
             <span class="soporte-etiqueta">Soporte</span>
             <h2><em>¿Algo</em> no funciona?</h2>
-            <p>Si un sistema falla, se traba o tienes una idea para mejorarlo, cuéntanos. Te avisamos por correo cuando esté resuelto.</p>
+            <p>Si un sistema falla, se traba o tienes una idea para mejorarlo, cuéntanos. Recibes un ticket y te avisamos por correo cuando esté listo.</p>
           </span>
           <span class="soporte-boton">Reportar un problema <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <button type="button" class="escuchar claro" data-voz="desc-soporte" aria-pressed="false" aria-label="Escuchar qué es Moa Soporte" title="Escuchar qué es">
+          <svg class="parlante" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
       </li>
 
     </ul>
@@ -680,6 +804,155 @@
       <img src="assets/logo-color.png" alt="MOA Education" width="560" height="232">
     </div>
   </footer>
+
+  <!-- Interruptor de sonido: apagado por defecto; la elección se recuerda en este navegador -->
+  <div class="interruptor">
+    <span class="pista" id="pista">¿Le ponemos sonido?</span>
+    <button type="button" id="sonido" aria-pressed="false" aria-label="Activar sonido" title="Activar sonido">
+      <svg class="no" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+      <svg class="si" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    </button>
+  </div>
+
+  <script>
+  /* ---------------------------------------------------------------
+     SONIDO. Los audios están en assets/audio/ (hechos con ElevenLabs).
+     - Interruptor apagado: solo suena lo que la persona toca a propósito
+       (saludos y botones «Escuchar»).
+     - Interruptor encendido: además, efectos suaves al pasar el mouse y
+       al abrir un sistema, y un saludo de bienvenida una vez al día.
+     --------------------------------------------------------------- */
+  (function () {
+    var CARPETA = 'assets/audio/';
+    var SALUDOS = ['hola', 'buongiorno', 'hello', 'salut', 'ciao', 'bonjour', 'hi'];
+    var guardar = function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} };
+    var leer = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+
+    var activo = leer('moa-sonido') === '1';
+    var audios = {};
+    function audio(nombre) {
+      if (!audios[nombre]) { audios[nombre] = new Audio(CARPETA + nombre + '.mp3'); audios[nombre].preload = 'auto'; }
+      return audios[nombre];
+    }
+
+    /* Efectos cortos (solo con el sonido encendido). Varían un poco el tono para no cansar. */
+    var ultimo = 0;
+    function efecto(nombre, volumen) {
+      if (!activo) return;
+      var ahora = Date.now();
+      if (ahora - ultimo < 90) return;
+      ultimo = ahora;
+      var a = audio(nombre).cloneNode();
+      a.volume = volumen || .45;
+      a.preservesPitch = false;
+      a.playbackRate = .92 + Math.random() * .2;
+      a.play().catch(function () {});
+    }
+
+    /* Voz: una a la vez */
+    var voz = null, botonVoz = null;
+    function parar() {
+      if (voz) { voz.pause(); voz.onended = null; }
+      if (botonVoz) { botonVoz.classList.remove('sonando'); botonVoz.setAttribute('aria-pressed', 'false'); }
+      voz = null; botonVoz = null;
+    }
+    function hablar(nombre, boton) {
+      parar();
+      voz = audio(nombre);
+      voz.currentTime = 0;
+      voz.onended = parar;
+      if (boton) { botonVoz = boton; boton.classList.add('sonando'); boton.setAttribute('aria-pressed', 'true'); }
+      return voz.play().catch(function (e) { parar(); throw e; });
+    }
+    document.addEventListener('visibilitychange', function () { if (document.hidden) parar(); });
+
+    /* 1. Saludos: suena el que se ve en ese momento */
+    var saludos = document.querySelector('.saludos');
+    if (saludos) {
+      saludos.addEventListener('click', function () {
+        var spans = saludos.querySelectorAll('span'), mejor = 0, max = -1;
+        spans.forEach(function (s, i) {
+          var o = parseFloat(getComputedStyle(s).opacity);
+          if (o > max) { max = o; mejor = i; }
+        });
+        hablar('saludo-' + SALUDOS[mejor]).catch(function () {});
+      });
+      saludos.addEventListener('mouseenter', function () { efecto('sfx-brillo', .35); });
+    }
+
+    /* 3. «Escuchar qué es»: tocar de nuevo lo detiene */
+    document.querySelectorAll('.escuchar').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (botonVoz === b) { parar(); return; }
+        hablar(b.dataset.voz, b).catch(function () {});
+      });
+    });
+
+    /* 2. Efectos al pasar el mouse y al abrir */
+    var conMouse = window.matchMedia('(hover: hover)').matches;
+    document.querySelectorAll('.sistema').forEach(function (a) {
+      if (conMouse) a.addEventListener('mouseenter', function () { efecto('sfx-pop', .4); });
+      a.addEventListener('click', function () { efecto('sfx-abrir', .45); });
+    });
+    var soporte = document.querySelector('.soporte');
+    if (soporte) {
+      if (conMouse) soporte.addEventListener('mouseenter', function () { efecto('sfx-soporte', .35); });
+      soporte.addEventListener('click', function () { efecto('sfx-abrir', .45); });
+    }
+
+    /* 4. Bienvenida según la hora */
+    function bienvenida() {
+      var h = new Date().getHours();
+      var parte = h < 12 ? 'manana' : (h < 19 ? 'tarde' : 'noche');
+      return hablar('bienvenida-' + parte).then(function () {
+        guardar('moa-bienvenida', new Date().toDateString());
+      });
+    }
+
+    /* Interruptor */
+    var boton = document.getElementById('sonido');
+    var pista = document.getElementById('pista');
+    function pintar() {
+      boton.setAttribute('aria-pressed', activo ? 'true' : 'false');
+      boton.setAttribute('aria-label', activo ? 'Apagar sonido' : 'Activar sonido');
+      boton.title = activo ? 'Apagar sonido' : 'Activar sonido';
+    }
+    pintar();
+    boton.addEventListener('click', function () {
+      activo = !activo;
+      guardar('moa-sonido', activo ? '1' : '0');
+      pista.classList.remove('ver');
+      pintar();
+      if (activo) {
+        efecto('sfx-activar', .5);
+        setTimeout(function () { bienvenida().catch(function () {}); }, 650);
+      } else {
+        parar();
+      }
+    });
+
+    /* Primera visita: una pista breve para descubrir el sonido */
+    if (leer('moa-sonido') === null) {
+      setTimeout(function () { pista.classList.add('ver'); }, 1800);
+      setTimeout(function () { pista.classList.remove('ver'); }, 8000);
+    }
+
+    /* Sonido encendido de antes: bienvenida una vez al día.
+       Si el navegador no deja sonar sin un toque previo, espera al primer toque. */
+    if (activo && leer('moa-bienvenida') !== new Date().toDateString()) {
+      bienvenida().catch(function () {
+        var unaVez = function (e) {
+          window.removeEventListener('pointerdown', unaVez, true);
+          window.removeEventListener('keydown', unaVez, true);
+          if (e.target.closest && e.target.closest('.escuchar, .saludos, #sonido')) return;
+          bienvenida().catch(function () {});
+        };
+        window.addEventListener('pointerdown', unaVez, true);
+        window.addEventListener('keydown', unaVez, true);
+      });
+    }
+  })();
+  </script>
 
 </body>
 </html>
