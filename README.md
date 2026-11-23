@@ -34,7 +34,7 @@ Es una página estática (solo `index.html` y la carpeta `assets/`): no necesita
 Los audios están en `assets/audio/` y se generaron una sola vez con ElevenLabs, así que la página no usa ninguna clave ni gasta créditos al abrirse.
 
 - **Saludos:** al tocar la burbuja «hola / buongiorno / hello…» se escucha el saludo que se ve, con voz nativa (`saludo-*.mp3`).
-- **Escuchar qué es:** el botón con parlante de cada tarjeta lee una breve explicación del sistema (`desc-*.mp3`, voz Lúminā).
-- **Interruptor de sonido** (abajo a la derecha): viene apagado. Encendido, suenan efectos suaves al pasar el mouse y al abrir un sistema (`sfx-*.mp3`) y una bienvenida según la hora, una vez al día (`bienvenida-*.mp3`). La elección se recuerda en cada navegador.
+- **Escuchar qué es:** el botón con parlante de cada tarjeta lee una breve explicación del sistema (`desc-*.mp3`, voz venezolana «Clari»).
+- **Interruptor de sonido** (abajo a la derecha): viene apagado. Encendido, suena una bienvenida según la hora, una vez al día (`bienvenida-*.mp3`). Las tarjetas no hacen ruido al pasar el mouse ni al abrirlas. La elección se recuerda en cada navegador.
 
 Si cambias la descripción de un sistema, conviene regenerar su `desc-*.mp3` con el mismo nombre de archivo.

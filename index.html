@@ -819,8 +819,8 @@
      SONIDO. Los audios están en assets/audio/ (hechos con ElevenLabs).
      - Interruptor apagado: solo suena lo que la persona toca a propósito
        (saludos y botones «Escuchar»).
-     - Interruptor encendido: además, efectos suaves al pasar el mouse y
-       al abrir un sistema, y un saludo de bienvenida una vez al día.
+     - Interruptor encendido: además, un saludo de bienvenida una vez al día.
+       Las tarjetas de los sistemas no suenan al pasar el mouse ni al abrirlas.
      --------------------------------------------------------------- */
   (function () {
     var CARPETA = 'assets/audio/';
@@ -888,19 +888,7 @@
       });
     });
 
-    /* 2. Efectos al pasar el mouse y al abrir */
-    var conMouse = window.matchMedia('(hover: hover)').matches;
-    document.querySelectorAll('.sistema').forEach(function (a) {
-      if (conMouse) a.addEventListener('mouseenter', function () { efecto('sfx-pop', .4); });
-      a.addEventListener('click', function () { efecto('sfx-abrir', .45); });
-    });
-    var soporte = document.querySelector('.soporte');
-    if (soporte) {
-      if (conMouse) soporte.addEventListener('mouseenter', function () { efecto('sfx-soporte', .35); });
-      soporte.addEventListener('click', function () { efecto('sfx-abrir', .45); });
-    }
-
-    /* 4. Bienvenida según la hora */
+    /* Bienvenida según la hora */
     function bienvenida() {
       var h = new Date().getHours();
       var parte = h < 12 ? 'manana' : (h < 19 ? 'tarde' : 'noche');
