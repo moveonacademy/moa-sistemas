@@ -140,15 +140,15 @@
       position: relative;
     }
     @media (min-width: 600px)  { .rejilla { grid-template-columns: repeat(2, 1fr); } }
-    /* 7 sistemas: en tablet van de 2 en 2 y el último ocupa todo el ancho;
-       en computadora, 3 arriba y luego dos filas de 2 (más anchos), sin huecos. */
+    /* 8 sistemas: en tablet van de 2 en 2 (si quedan impares, el último ocupa
+       todo el ancho); en computadora, dos filas de 3 y una de 2 (más anchos). */
     @media (min-width: 600px) and (max-width: 999px) {
       .rejilla > li:nth-last-child(2):nth-child(odd) { grid-column: 1 / -1; }
     }
     @media (min-width: 1000px) {
       .rejilla { grid-template-columns: repeat(6, 1fr); }
       .rejilla > li { grid-column: span 2; }
-      .rejilla > li:nth-child(n+4) { grid-column: span 3; }
+      .rejilla > li:nth-child(7), .rejilla > li:nth-child(8) { grid-column: span 3; }
     }
     .sistema {
       --color: var(--teal);
@@ -495,6 +495,7 @@
     .rejilla > li:nth-child(6) { animation-delay: .85s; }
     .rejilla > li:nth-child(7) { animation-delay: .95s; }
     .rejilla > li:nth-child(8) { animation-delay: 1.05s; }
+    .rejilla > li:nth-child(9) { animation-delay: 1.15s; }
     @keyframes aparecer {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -508,6 +509,7 @@
     .rejilla > li:nth-child(5) .icono { animation-delay: -1.3s; }
     .rejilla > li:nth-child(6) .icono { animation-delay: -2.2s; }
     .rejilla > li:nth-child(7) .icono { animation-delay: -.5s; }
+    .rejilla > li:nth-child(8) .icono { animation-delay: -3.1s; }
     @keyframes flotarIcono {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50%      { transform: translateY(-6px) rotate(-4deg); }
@@ -806,6 +808,21 @@
           <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
         <button type="button" class="escuchar" data-voz="desc-expedition" aria-pressed="false" aria-label="Escuchar qué es Moa Expedition" title="Escuchar qué es">
+          <svg class="parlante" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </li>
+
+      <li>
+        <a class="sistema morado" href="https://library.moaeducation.com/" target="_blank" rel="noopener">
+          <span class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 3 5v13.5c4-.5 7 0 9 1.5 2-1.5 5-2 9-1.5V5c-4-.5-7 0-9 1.5z"/><path d="M12 6.5V20"/></svg>
+          </span>
+          <h2><em>Moa</em> Library</h2>
+          <p>Cuentos y libros interactivos en inglés para los alumnos: leer, escuchar, leer en voz alta y ganar estrellas.</p>
+          <span class="abrir">Abrir <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <button type="button" class="escuchar morado" data-voz="desc-library" aria-pressed="false" aria-label="Escuchar qué es Moa Library" title="Escuchar qué es">
           <svg class="parlante" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
           <span class="ondas" aria-hidden="true"><i></i><i></i><i></i></span>
         </button>

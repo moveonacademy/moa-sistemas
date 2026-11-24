@@ -11,6 +11,7 @@ Página de accesos de MOA Education: un botón por cada sistema.
 | Moa Disponibilidad | https://disponibilidad.moaeducation.com/ | Profesores marcan sus horas libres; Administración busca y asigna profesor al instante. |
 | Moa Stand (D-Future) | https://stand.moaeducation.com/ | Stand «Aula viva»: registro por QR, prueba de inglés en el tótem, TV en vivo. |
 | Moa Expedition | https://expedition.moaeducation.com/ | Fase online de la competencia anual de inglés: registro familiar y prueba clasificatoria. |
+| Moa Library | https://library.moaeducation.com/ | Cuentos y libros interactivos en inglés para los alumnos (link y QR por cuento, sin usuario). |
 | Soporte | https://soporte.moaeducation.com/ | Mesa de ayuda con tickets y aviso por correo. |
 
 Es una página estática (solo `index.html` y la carpeta `assets/`): no necesita instalar nada ni "build".
