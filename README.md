@@ -37,6 +37,6 @@ Los audios están en `assets/audio/` y se generaron una sola vez con ElevenLabs,
 
 - **Saludos:** al tocar la burbuja «hola / buongiorno / hello…» se escucha el saludo que se ve, con voz nativa (`saludo-*.mp3`).
 - **Escuchar qué es:** el botón con parlante de cada tarjeta lee una breve explicación del sistema (`desc-*.mp3`, voz de «azafata diplomática» diseñada en ElevenLabs).
-- **Interruptor de sonido** (abajo a la derecha): viene apagado. Encendido, suena una bienvenida según la hora, una vez al día (`bienvenida-*.mp3`). Las tarjetas no hacen ruido al pasar el mouse ni al abrirlas. La elección se recuerda en cada navegador.
+- **Interruptor de sonido** (abajo a la derecha): viene apagado. Al encenderlo suena un mensaje de unos 20 segundos (saludo según la hora + por qué usar bien los sistemas hace que todo fluya); con el sonido ya encendido, se repite una vez al día (`bienvenida-*.mp3`). Las tarjetas no hacen ruido al pasar el mouse ni al abrirlas. La elección se recuerda en cada navegador.
 
 Si cambias la descripción de un sistema, conviene regenerar su `desc-*.mp3` con el mismo nombre de archivo.
