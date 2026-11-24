@@ -874,15 +874,17 @@
 
     /* Efectos cortos (solo con el sonido encendido). Varían un poco el tono para no cansar. */
     var ultimo = 0;
-    function efecto(nombre, volumen) {
+    function efecto(nombre, volumen, tonoFijo) {
       if (!activo) return;
       var ahora = Date.now();
       if (ahora - ultimo < 90) return;
       ultimo = ahora;
       var a = audio(nombre).cloneNode();
       a.volume = volumen || .45;
-      a.preservesPitch = false;
-      a.playbackRate = .92 + Math.random() * .2;
+      if (!tonoFijo) {
+        a.preservesPitch = false;
+        a.playbackRate = .92 + Math.random() * .2;
+      }
       a.play().catch(function () {});
     }
 
@@ -949,8 +951,8 @@
       pista.classList.remove('ver');
       pintar();
       if (activo) {
-        efecto('sfx-activar', .5);
-        setTimeout(function () { bienvenida().catch(function () {}); }, 650);
+        efecto('sfx-activar', .5, true);   /* «ding-dong» de cabina de avión */
+        setTimeout(function () { bienvenida().catch(function () {}); }, 1500);
       } else {
         parar();
       }
