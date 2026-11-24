@@ -8,7 +8,9 @@ Página de accesos de MOA Education: un botón por cada sistema.
 | Moa Finance | https://finance.moaeducation.com/ | Panel financiero: ingresos y gastos, CxC y CxP, plan vs. real mensual. |
 | Moa Dashboard | https://dashboard.moaeducation.com/ | Tareas, checkpoints, revisión de calidad y KPI del equipo académico. |
 | Moa Student Platform | https://moa-education-students.fly.dev/ | Clases de inglés: calendario, tareas, práctica con IA, pagos y certificados. |
+| Moa Disponibilidad | https://disponibilidad.moaeducation.com/ | Profesores marcan sus horas libres; Administración busca y asigna profesor al instante. |
 | Moa Stand (D-Future) | https://stand.moaeducation.com/ | Stand «Aula viva»: registro por QR, prueba de inglés en el tótem, TV en vivo. |
+| Moa Expedition | https://expedition.moaeducation.com/ | Fase online de la competencia anual de inglés: registro familiar y prueba clasificatoria. |
 | Soporte | https://soporte.moaeducation.com/ | Mesa de ayuda con tickets y aviso por correo. |
 
 Es una página estática (solo `index.html` y la carpeta `assets/`): no necesita instalar nada ni "build".
